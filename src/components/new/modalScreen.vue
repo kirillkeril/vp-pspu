@@ -65,6 +65,7 @@ export default {
     max-width: 720px;
     min-width: 300px;
     min-height: 300px;
+    max-height: 70vh;
     background-color: #FF4600;
     border-radius: 1rem;
     z-index: 10001;

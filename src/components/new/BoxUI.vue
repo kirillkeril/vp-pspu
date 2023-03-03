@@ -2,7 +2,7 @@
 <div class="box">
     <img src="@/images/box.svg"/>
     <div class="box__content">
-        <h3 class="box__header">Коробка №{{box.id}} <span class="info" v-if="box.isPacked && !box.isSent">упак.</span> <span class="info" v-if="box.isSent">отправ.</span></h3>
+        <h3 class="box__header">Коробка №{{box.boxNumber}} <span class="info" v-if="box.isPacked && !box.isSent">упак.</span> <span class="info" v-if="box.isSent">отправ.</span></h3>
         <p class="box__description">{{box.description}}</p>
     </div>
     <div class="box__more-arrow" v-on:click="openBox"></div>

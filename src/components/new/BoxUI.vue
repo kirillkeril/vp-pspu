@@ -53,7 +53,9 @@
                                 class="form-control"
                                 placeholder="Наименование"
                                 v-model="this.newItem.title" />
+
                         </div>
+                        <p v-if="v$.newItem.title.$error">Введите наименование (не менее трех символов)</p>
                         <div class="input-group mb-1">
                             <input
                                 class="form-control"
@@ -65,6 +67,7 @@
                                 placeholder="Вес в кг"
                                 v-model="this.newItem.weight" />
                         </div>
+                        <p v-if="v$.newItem.weight.$error || v$.newItem.amount.$error">Проверье кол-во предметов. <br> Проверьте корректность веса, он не должен превышать 10кг на единицу. <br> Дробное число вводится с точкой.</p>
                         <div class="input-group mb-3">
                             <span class="input-group-text">Суммарный вес: {{!isNaN(parseFloat(this.newItem.weight.replace(',','.') * this.newItem.amount)) ? parseFloat(this.newItem.weight.replace(',','.') * this.newItem.amount).toFixed(3) : 0.000}}кг</span>
                         </div>
@@ -230,8 +233,13 @@ import { getItemsFromBox } from '../../services/services';
 import store from '@/store.js';
 import {getSumWeightFromBox} from '../../services/services';
 import {createItem, printBox} from '../../api/api';
+import {required, decimal, numeric, maxValue, integer, minLength} from '@vuelidate/validators';
+import {useVuelidate} from '@vuelidate/core'
 
 export default {
+    setup () {
+        return { v$: useVuelidate() }
+    },
     data() {
         return {
             isOpened: false,
@@ -251,6 +259,15 @@ export default {
                 isPacked: this.box.isPacked,
             }
         };
+    },
+    validations () {
+        return {
+            newItem: {
+                title: {required, minLength: minLength(3)},
+                amount: {required, numeric, integer},
+                weight: {required, decimal, maxValue: maxValue(10)},
+            }
+        }
     },
     props: {
         box: {required: true}
@@ -275,19 +292,25 @@ export default {
             location.reload();
         },
         async createNewItem() {
-            const res = await createItem(this.type, this.newItem);
-            if (res.status == 'ERROR'){
-                this.err = res.data;
-                console.log(res.data);
-            } else {
-                this.newItem = {
-                    title: '',
-                    amount: null,
-                    weight: '0',
-                    box_id: this.box.id,
-                },
-                this.closeBox();
-                store.commit('get');
+            // console.log(this.v$.newItem.weight.);
+            let res;
+            const isFormCorrect = await this.v$.$validate()
+            console.log(isFormCorrect)
+            if (isFormCorrect) {
+                res = await createItem(this.type, this.newItem);
+
+                if (res.status === 'ERROR'){
+                    this.err = res.data;
+                } else {
+                    this.newItem = {
+                        title: '',
+                        amount: null,
+                        weight: '0',
+                        box_id: this.box.id,
+                    },
+                    this.closeBox();
+                    store.commit('get');
+                }
             }
         },
         async saveBox() {

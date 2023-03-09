@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const config = {
-    url: 'https://vp-pspu.cf'
+    url: 'http://localhost:8000'
 }
 
 export const fetchData = async (type, currentPage) => {

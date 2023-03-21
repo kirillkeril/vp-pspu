@@ -1,8 +1,17 @@
 <template>
     <!-- <BoxPage></BoxPage> -->
     <div class="header">
-        <PaginationUI />
-        <div class="logo"><img src="@/images/logo.png" alt="лого"></div>
+        <PaginationUI type="goto" />
+        <div
+            class="createNewBox"
+            @click.prevent="(e) => {
+                openCreatingBox();
+            }"
+        >
+            <svg viewBox="0 0 48 48" class="addBoxIcon" height="48" width="48">
+                <path d="M22.5 38V25.5H10v-3h12.5V10h3v12.5H38v3H25.5V38Z"/>
+            </svg>
+        </div>
     </div>
     <div class="main-title">
         <div class="line"></div>
@@ -11,16 +20,17 @@
     
     <main>
         <BoxList :boxes="boxes"></BoxList>
-        <div class="button_container">
-            <ButtonUI @click="e => {
-                e.preventDefault();
-                openCreatingBox();
-            }">
-                Добавить коробку?
-            </ButtonUI>
-        </div>
+<!--        <div class="button_container">-->
+<!--            <ButtonUI @click="e => {-->
+<!--                e.preventDefault();-->
+<!--                openCreatingBox();-->
+<!--            }">-->
+<!--                Добавить коробку?-->
+<!--            </ButtonUI>-->
+<!--        </div>-->
+        <PaginationUI type="list"/>
     </main>
-    <ModalScreen box-id="addBox" :visibility="isAddingBox" @close="closeCreatingBox"> 
+    <ModalScreen box-id="addBox" :visibility="isAddingBox" @close="closeCreatingBox">
         <div class="container row p-3">
             <h3>Добавить новую коробку?</h3>
             <div class="input-group mb-3">
@@ -47,7 +57,7 @@
 
 <script>
 import BoxList from '@/components/new/BoxList.vue';
-import ButtonUI from '@/components/new/ButtonUI.vue';
+// import ButtonUI from '@/components/new/ButtonUI.vue';
 import PaginationUI from '@/components/new/PaginationUI.vue';
 import store from '@/store.js';
 import ModalScreen from './components/new/modalScreen.vue';
@@ -78,7 +88,7 @@ export default {
             this.closeCreatingBox();
         }
     },
-    components: { BoxList, ButtonUI, PaginationUI, ModalScreen },
+    components: { BoxList,  PaginationUI, ModalScreen },
     computed: {
         status() {
             return store.state.status;
@@ -92,17 +102,34 @@ console.log(store.state.currentPage);
 </script>
 
 <style>
+:root {
+    --mainBackgroundColor: rgb(33,34,60);
+    --mainColorTransparent: rgba(255,255,255,60);
+    --colorMainWhite: rgb(255,255,255);
+
+    --colorMainBlue: rgb(28,117,225);
+    --colorDarkBlue: rgb(5, 38, 79);
+    --colorLightBlue: rgb(7, 64, 133);
+
+    --colorMainOrange: rgb(225, 98, 23);
+    --colorDarkOrange: rgb(93, 36, 3);
+    --colorLightOrange: rgb(138, 57, 10);
+
+    --colorMainRed: rgb(225, 57, 23);
+    --colorMainGray: rgb(63, 65, 103);
+}
 *, html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-size: 16px;
+    color: var(--colorMainWhite);
 }
 @media (max-width:350px) {
     html {font-size: 11px;}
 }
 body, .main-title > h1 {
-    background-color: #FF4200;
+    background-color: var(--mainBackgroundColor);
 }
 .button_container {
     margin: 0 auto;
@@ -149,7 +176,7 @@ body, .main-title > h1 {
 @media (max-width: 600px) {
     .header {
         position: fixed;
-        background-color: #ff4400c4; 
+        background-color: var(--mainBackgroundColor);
         border-radius: 0 0 1rem 1rem;
     }
 }
@@ -176,5 +203,19 @@ body, .main-title > h1 {
     padding: 0.5rem 1rem;
     margin-top: 1rem;
     border-radius: 1rem;
+}
+.addBoxIcon {
+    transform: translate(20%);
+    width: 70%;
+}
+.addBoxIcon path {
+    fill: var(--colorMainWhite);
+}
+.createNewBox {
+    cursor: pointer;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: var(--colorMainGray);
 }
 </style>

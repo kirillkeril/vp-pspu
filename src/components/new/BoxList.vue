@@ -1,6 +1,6 @@
 <template>
     <div class="box-list">
-        <BoxUI v-for="item in boxes" :key="item.id" :box="item"></BoxUI>
+        <BoxUI v-for="item in boxes" :key="item.id" :box="item" :color="item.boxNumber % 2 === 0 ? 'blue' : 'orange'"></BoxUI>
     </div>
 </template>
 

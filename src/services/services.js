@@ -21,5 +21,5 @@ export const getSumWeightFromBox = (box) => {
     items.forEach(item => {
         sum += parseFloat(item.weight) * parseFloat(item.amount);
     });
-    return sum;
+    return sum.toFixed(3);
 }

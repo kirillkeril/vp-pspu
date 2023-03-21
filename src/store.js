@@ -16,7 +16,6 @@ export default createStore({
         async get(state) {
             const {data, maxPages, status} = await getBoxes(state.currentPage);
             state.boxes = data;
-            console.log(state.boxes);
             state.maxPage = maxPages;
             state.status = status;
         },

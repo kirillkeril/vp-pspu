@@ -1,22 +1,51 @@
 <template>
 <div class="box">
-    <img src="@/images/box.svg"/>
+    <svg :class="'box_'+color" :id="'box_'+box.id" style="width: 95%" width="381" height="268" viewBox="0 0 381 268" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="box_face" d="M2 51.7502H300.498V266.994H2V51.7502Z" stroke="white" fill="white"/>
+        <path class="box_light_side" d="M2.28223 52H300.121L378.621 1.00002H79.6215L2.28223 52Z" fill="#FFD8AA" stroke="white"/>
+        <path class="box_dark_side" d="M379.121 1L300.121 52L300.621 266.5L379.121 213V1Z" fill="#FCCA90" stroke="white"/>
+    </svg>
     <div class="box__content">
-        <h3 class="box__header">Коробка №{{box.boxNumber}} <span class="info" v-if="box.isPacked && !box.isSent">упак.</span> <span class="info" v-if="box.isSent">отправ.</span></h3>
-        <p class="box__description">{{box.description}}</p>
+        <h3 class="box__header">Коробка №{{box.boxNumber}}</h3>
+        <div class="box__description">{{box.description}}</div>
+        <div class="box__description">Вес: {{weight}}</div>
+        <div class="box__description" style="margin-top: 0.2rem;">Запакована: {{box.isPacked ? 'Да' : 'Нет'}}</div>
+        <div class="box__description">Отправлена: {{ box.isSent ? 'Да' : 'Нет' }}</div>
     </div>
-    <div class="box__more-arrow" v-on:click="openBox"></div>
+
+    <div class="box__pack-btn">
+        <svg v-if="box.isPacked" xmlns="http://www.w3.org/2000/svg" height="40" width="40"><path d="M10.75 35q-.958 0-1.688-.729-.729-.729-.729-1.688V17.5q0-1 .729-1.708.73-.709 1.688-.709h2.708v-3.541q0-2.75 1.896-4.646T20 5q2.75 0 4.646 1.896t1.896 4.646v3.541h2.708q.958 0 1.688.709.729.708.729 1.708v15.083q0 .959-.729 1.688-.73.729-1.688.729Zm0-1.417h18.5q.417 0 .708-.291.292-.292.292-.709V17.5q0-.417-.292-.708-.291-.292-.708-.292h-18.5q-.417 0-.708.292-.292.291-.292.708v15.083q0 .417.292.709.291.291.708.291ZM20 27.5q1.042 0 1.75-.708.708-.709.708-1.75 0-1-.729-1.73Q21 22.583 20 22.583q-1.042 0-1.75.729-.708.73-.708 1.771 0 1 .729 1.709Q19 27.5 20 27.5Zm-5.125-12.417h10.25v-3.541q0-2.125-1.5-3.625T20 6.417q-2.125 0-3.625 1.5t-1.5 3.625Zm-5.125 18.5V16.5v17.083Z"/></svg>
+        <svg v-if="!box.isPacked" xmlns="http://www.w3.org/2000/svg" height="40" width="40"><path d="M10.75 15.083h14.375v-3.541q0-2.125-1.5-3.625T20 6.417q-2.125 0-3.625 1.5t-1.5 3.625h-1.417q0-2.75 1.896-4.646T20 5q2.75 0 4.646 1.896t1.896 4.646v3.541h2.708q.958 0 1.688.709.729.708.729 1.708v15.083q0 .959-.729 1.688-.73.729-1.688.729h-18.5q-.958 0-1.688-.729-.729-.729-.729-1.688V17.5q0-1 .729-1.708.73-.709 1.688-.709Zm0 18.5h18.5q.417 0 .708-.291.292-.292.292-.709V17.5q0-.417-.292-.708-.291-.292-.708-.292h-18.5q-.417 0-.708.292-.292.291-.292.708v15.083q0 .417.292.709.291.291.708.291ZM20 27.5q1.042 0 1.75-.708.708-.709.708-1.75 0-1-.729-1.73Q21 22.583 20 22.583q-1.042 0-1.75.729-.708.73-.708 1.771 0 1 .729 1.709Q19 27.5 20 27.5ZM9.75 33.583V16.5v17.083Z"/></svg>
+    </div>
+
+    <div class="box__more-arrow" v-on:click="openBox">
+        <svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 96 960 960" width="40">
+            <path d="M466.077 756h30.769V536h-30.769v220Zm13.905-274q9.018 0 15.249-5.931t6.231-15.3q0-9.45-6.214-15.571-6.213-6.121-15.23-6.121-9.787 0-15.633 6.121-5.847 6.121-5.847 15.571 0 9.369 6.214 15.3 6.213 5.931 15.23 5.931Zm.418 454q-75.176 0-140.294-28.339-65.119-28.34-114.247-77.422-49.127-49.082-77.493-114.213Q120 650.894 120 575.634q0-74.491 28.339-140.069 28.34-65.578 77.422-114.206 49.082-48.627 114.213-76.993Q405.106 216 480.366 216q74.491 0 140.069 28.339 65.578 28.34 114.206 76.922 48.627 48.582 76.993 114.257Q840 501.194 840 575.6q0 75.176-28.339 140.294-28.34 65.119-76.922 114.062-48.582 48.944-114.257 77.494Q554.806 936 480.4 936Zm.1-30.769q136.885 0 232.808-96.039 95.923-96.038 95.923-233.692 0-136.885-95.736-232.808Q617.76 246.769 480 246.769q-137.154 0-233.192 95.736Q150.769 438.24 150.769 576q0 137.154 96.039 233.192 96.038 96.039 233.692 96.039ZM480 576Z"/>
+        </svg>
+    </div>
 
     <ModalScreen :visibility="isOpened" :box-id="this.box.id" @close="closeBox">
-        <h3>Коробка №{{box.id}} <span>({{parseFloat(weight).toFixed(3)}}кг)</span></h3>
+        <h3>Коробка №{{box.boxNumber}} <span>({{parseFloat(weight).toFixed(3)}}кг)</span></h3>
         <details class="mb-3">
             <summary>Параметры коробки</summary>
             <div class="options">
                 <div>
-                    <input class="form-check-input" type="checkbox" v-model="changedBox.isPacked"/> <span>Упак.</span>
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        v-model="changedBox.isPacked"
+                        :disabled="this.box.isSent || parseFloat(weight).toFixed(3) > 10"
+                    />
+                    <span>Упак.</span>
                 </div>
                 <div>
-                    <input class="form-check-input" :disabled="!this.changedBox.isPacked" v-model="changedBox.isSent" type="checkbox"/> <span>Отправ.</span>
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        v-model="changedBox.isSent"
+                        :disabled="!this.changedBox.isPacked || box.isSent || parseFloat(weight).toFixed(3) > 10"
+                    />
+                    <span>Отправ.</span>
                 </div>
 
                 <div style="width: 50%; margin: 0 auto; display: flex; justify-content: space-around; align-items: center;">
@@ -73,7 +102,7 @@
                         </div>
 
                         <div class="input-group mb-3">
-                            <select v-model="this.type" id="type-selector" class="form-select">
+                            <select style="color: var(--colorMainGray)" v-model="this.type" id="type-selector" class="form-select">
                                 <option value="" selected disabled>Выберите категорию</option>
                                 <option value="clothes">Одежда</option>
                                 <option value="food">Еда</option>
@@ -270,7 +299,8 @@ export default {
         }
     },
     props: {
-        box: {required: true}
+        box: {required: true},
+        color: {required: true},
     },
     components: { ModalScreen },
     methods: {
@@ -292,9 +322,8 @@ export default {
             location.reload();
         },
         async createNewItem() {
-            // console.log(this.v$.newItem.weight.);
             let res;
-            const isFormCorrect = await this.v$.$validate()
+            const isFormCorrect = await this.v$.$validate() && parseFloat(getSumWeightFromBox(this.box)).toFixed(3) <= 10;
             console.log(isFormCorrect)
             if (isFormCorrect) {
                 res = await createItem(this.type, this.newItem);
@@ -351,21 +380,33 @@ export default {
 .box__content {
     position: absolute;
     z-index: 10;
-    top: 23%;
+    top: 28%;
     left: 5%;
     right: 27%;
+    width: 70%;
+    height: 70%;
     word-wrap: break-word;
 }
 .box__more-arrow {
-    opacity: 0;
     cursor: pointer;
-    width: 9%;
-    height: 13%;
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.144);
-    bottom: 5%;
-    right: 25%;
+    bottom: 22%;
+    right: 27%;
+    z-index: 10;
 }
+.box__more-arrow svg path {
+    fill: var(--colorMainWhite);
+}
+.box__pack-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 25%;
+    right: 27%;
+}
+.box__pack-btn svg path {
+    fill: var(--colorMainWhite);
+}
+
 .title {
     font-size: 1.5rem;
 }
@@ -392,5 +433,24 @@ export default {
 }
 .options > input[type="checkbox"] {
 
+}
+.box_blue .box_face {
+    fill: var(--colorMainBlue);
+}
+.box_blue .box_light_side {
+    fill: var(--colorLightBlue);
+}
+.box_blue .box_dark_side {
+    fill: var(--colorDarkBlue);
+}
+
+.box_orange .box_face {
+    fill: var(--colorMainOrange);
+}
+.box_orange .box_light_side {
+    fill: var(--colorLightOrange);
+}
+.box_orange .box_dark_side {
+    fill: var(--colorDarkOrange);
 }
 </style>

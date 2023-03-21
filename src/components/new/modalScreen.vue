@@ -66,10 +66,10 @@ export default {
     min-width: 300px;
     min-height: 300px;
     max-height: 70vh;
-    background-color: #FF4600;
+    background-color: var(--mainBackgroundColor);
     border-radius: 1rem;
     z-index: 10001;
-    color: white;
+    color: var(--colorMainWhite);
     padding: 1rem;
     overflow-y: auto;
 }

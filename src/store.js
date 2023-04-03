@@ -44,7 +44,7 @@ export default createStore({
         },
         setError(state, err) {
             state.error = err;
-        }
+        },
     },
 })
 

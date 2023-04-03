@@ -19,25 +19,56 @@
     </div>
     
     <main>
-        <BoxList :boxes="boxes"></BoxList>
-<!--        <div class="button_container">-->
-<!--            <ButtonUI @click="e => {-->
-<!--                e.preventDefault();-->
-<!--                openCreatingBox();-->
-<!--            }">-->
-<!--                Добавить коробку?-->
-<!--            </ButtonUI>-->
-<!--        </div>-->
+        <BoxList :boxes="this.boxes"></BoxList>
         <PaginationUI type="list"/>
     </main>
     <ModalScreen box-id="addBox" :visibility="isAddingBox" @close="closeCreatingBox">
         <div class="container row p-3">
             <h3>Добавить новую коробку?</h3>
             <div class="input-group mb-3">
-                <input
-                    class="form-control" 
-                    placeholder="Категория сортировки"
-                    v-model="newBox.description"/> 
+                <select v-model="newBox.description" class="form-select" style="color: var(--colorMainGray)">
+                    <option value="ВЕРХНЯЯ ОДЕЖДА ЖЕНСКАЯ">ВЕРХНЯЯ ОДЕЖДА ЖЕНСКАЯ</option>
+                    <option value="ВЕРХНЯЯ ОДЕЖДА МУЖСКАЯ">ВЕРХНЯЯ ОДЕЖДА МУЖСКАЯ</option>
+                    <option value="ВЕРХНЯЯ ОДЕЖДА ДЕТСКАЯ">ВЕРХНЯЯ ОДЕЖДА ДЕТСКАЯ</option>
+
+                    <option value="ОБУВЬ ЖЕНСКАЯ">ОБУВЬ ЖЕНСКАЯ</option>
+                    <option value="ОБУВЬ МУЖСКАЯ">ОБУВЬ МУЖСКАЯ</option>
+                    <option value="ОБУВЬ ДЕТСКАЯ">ОБУВЬ ДЕТСКАЯ</option>
+
+                    <option value="ПОВСЕДНЕВНАЯ ОДЕЖДА ЖЕНСКАЯ">ПОВСЕДНЕВНАЯ ОДЕЖДА ЖЕНСКАЯ</option>
+                    <option value="ПОВСЕДНЕВНАЯ ОДЕЖДА МУЖСКАЯ">ПОВСЕДНЕВНАЯ ОДЕЖДА МУЖСКАЯ</option>
+                    <option value="ПОВСЕДНЕВНАЯ ОДЕЖДА ДЕТСКАЯ">ПОВСЕДНЕВНАЯ ОДЕЖДА ДЕТСКАЯ</option>
+
+                    <option value="БЕЛЬЕ ЖЕНСКОЕ">БЕЛЬЕ ЖЕНСКОЕ</option>
+                    <option value="БЕЛЬЕ МУЖСКОЕ">БЕЛЬЕ МУЖСКОЕ</option>
+
+                    <option value="ПОСТЕЛЬНОЕ БЕЛЬЕ">ПОСТЕЛЬНОЕ БЕЛЬЕ</option>
+
+                    <option value="КНИГИ">КНИГИ</option>
+
+                    <option value="КАНЦЕЛЯРИЯ">КАНЦЕЛЯРИЯ</option>
+
+                    <option value="ДЕТСКИЕ ИГРУШКИ">ДЕТСКИЕ ИГРУШКИ</option>
+
+                    <option value="ДЕТСКИЕ ТОВАРЫ">ДЕТСКИЕ ТОВАРЫ</option>
+
+                    <option value="ДЕТСКИЕ ПАМПЕРСЫ">ДЕТСКИЕ ПАМПЕРСЫ</option>
+                    <option value="ПАМПЕРСЫ ДЛЯ ВЗРОСЛЫХ">ПАМПЕРСЫ ДЛЯ ВЗРОСЛЫХ</option>
+
+                    <option value="ЛЕКАРСТВА">ЛЕКАРСТВА</option>
+
+                    <option value="ПРОДУКТЫ ПИТАНИЯ">ПРОДУКТЫ ПИТАНИЯ</option>
+                    <option value="ПРОДУКТЫ ПИТАНИЯ ДЕТСКИЕ">ПРОДУКТЫ ПИТАНИЯ ДЕТСКИЕ</option>
+
+                    <option value="ПОСУДА">ПОСУДА</option>
+
+                    <option value="ПРЕДМЕТЫ ГИГИЕНЫ">ПРЕДМЕТЫ ГИГИЕНЫ</option>
+
+                    <option value="БЫТОВАЯ ХИМИЯ">БЫТОВАЯ ХИМИЯ</option>
+
+                    <option value="ХОЗТОВАРЫ">ХОЗТОВАРЫ</option>
+
+                </select>
             </div>
             <div class="container mt-3">!!!Обратите внимание, что содержимое коробки должно соответствовать категории сортировки (см. сортировочный лист)</div>
             <footer>
@@ -57,7 +88,6 @@
 
 <script>
 import BoxList from '@/components/new/BoxList.vue';
-// import ButtonUI from '@/components/new/ButtonUI.vue';
 import PaginationUI from '@/components/new/PaginationUI.vue';
 import store from '@/store.js';
 import ModalScreen from './components/new/modalScreen.vue';

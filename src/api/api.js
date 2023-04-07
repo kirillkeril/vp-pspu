@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const config = {
-    url: 'https://vp-pspu.cf/'
+    url: 'https://vp-pspu.cf'
 }
 
 export const fetchData = async (type, currentPage) => {
@@ -71,10 +71,10 @@ export const deleteItem = async (item) => {
     }
 }
 
-export const getBoxes = async (page) => {
+export const getBoxes = async (page, options='') => {
     let res;
     try {
-        res = await axios.get(`${config.url}/api/get/box/${page}/`);
+        res = await axios.get(`${config.url}/api/get/box/${page}/?${options}`);
         return {status: res.data.status, data: res.data.data, maxPages: res.data.maxPages};
     } catch (error) {
         return {status: 'ERROR', data: `Неизвестная ошибка: ${error.toString()}`}

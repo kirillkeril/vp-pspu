@@ -9,7 +9,7 @@
         <span v-if="isSettingPage">
             <input :value="currentPage" id="pag-input" @change.prevent="handlePagInput"/>/{{maxPage}}
         </span>
-</div>
+    </div>
 <!--    <div class="pag-left" @click="prevPage">-->
 <!--        <svg width="44" height="42" viewBox="0 0 44 42" fill="none" xmlns="http://www.w3.org/2000/svg">-->
 <!--            <rect width="43.0244" height="42" fill="white"/>-->
@@ -70,13 +70,6 @@ export default {
         setPage(page) {
             store.commit('changePage', page);
             store.commit('get');
-        },
-
-        prevPage() {
-            this.setPage(store.state.currentPage - 1);
-        },
-        nextPage() {
-            this.setPage(store.state.currentPage + 1);
         },
         getPagesList() {
             const basePagesList = calcPages(store.state.maxPage);

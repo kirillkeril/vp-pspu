@@ -1,6 +1,6 @@
 <template>
 <div class="box">
-    <svg :class="'box_'+color" :id="'box_'+box.id" style="width: 95%" width="381" height="268" viewBox="0 0 381 268" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg :class="'box_'+color" :id="'box_'+box.id" style="width: calc(1vh * 1vw * 100%); min-width: 320px;" width="381" height="268" viewBox="0 0 381 268" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path class="box_face" d="M2 51.7502H300.498V266.994H2V51.7502Z" stroke="white" fill="white"/>
         <path class="box_light_side" d="M2.28223 52H300.121L378.621 1.00002H79.6215L2.28223 52Z" fill="#FFD8AA" stroke="white"/>
         <path class="box_dark_side" d="M379.121 1L300.121 52L300.621 266.5L379.121 213V1Z" fill="#FCCA90" stroke="white"/>
@@ -368,7 +368,7 @@ export default {
     margin: 1rem 0.2rem 0.2rem;
     max-width: 350px;
 }
-.box img {
+.box svg {
     object-position: center;
     margin: auto;
     top: 0;

@@ -2,6 +2,8 @@
     <!-- <BoxPage></BoxPage> -->
     <div class="header">
         <PaginationUI type="goto" />
+        <div>
+        </div>
         <div
             class="createNewBox"
             @click.prevent="(e) => {
@@ -17,11 +19,15 @@
         <div class="line"></div>
         <h1>Коробки</h1>
     </div>
-    
-    <main>
+    <sort-selector/>
+
+    <main v-if="boxes.length > 0">
         <BoxList :boxes="this.boxes"></BoxList>
-        <PaginationUI type="list"/>
     </main>
+    <main v-else>
+        <h2 style="margin-top: 5rem;">Ничего нет...</h2>
+    </main>
+    <PaginationUI type="list"/>
     <ModalScreen box-id="addBox" :visibility="isAddingBox" @close="closeCreatingBox">
         <div class="container row p-3">
             <h3>Добавить новую коробку?</h3>
@@ -91,6 +97,7 @@ import BoxList from '@/components/new/BoxList.vue';
 import PaginationUI from '@/components/new/PaginationUI.vue';
 import store from '@/store.js';
 import ModalScreen from './components/new/modalScreen.vue';
+import SortSelector from "@/components/new/sortSelector.vue";
 
 
 export default {
@@ -118,7 +125,7 @@ export default {
             this.closeCreatingBox();
         }
     },
-    components: { BoxList,  PaginationUI, ModalScreen },
+    components: {SortSelector, BoxList,  PaginationUI, ModalScreen },
     computed: {
         status() {
             return store.state.status;

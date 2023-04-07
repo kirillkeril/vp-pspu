@@ -10,11 +10,18 @@ export default createStore({
             data: {},
             status: '',
             error: '',
+            sortType: '',
+            date: {month: new Date().getMonth().toString(), year: new Date().getFullYear().toString()},
         }
     },
     mutations: {
         async get(state) {
-            const {data, maxPages, status} = await getBoxes(state.currentPage);
+            let options = "";
+            if (state.sortType !== "" && state.date.month && state.date.year) {
+                options += `type=${state.sortType}`
+                options += `&month=${state.date.month}&year=${state.date.year}`
+            }
+            const {data, maxPages, status} = await getBoxes(state.currentPage, options);
             state.boxes = data;
             state.maxPage = maxPages;
             state.status = status;

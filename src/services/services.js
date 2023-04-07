@@ -23,3 +23,7 @@ export const getSumWeightFromBox = (box) => {
     });
     return sum.toFixed(3);
 }
+
+export const getLastDateString = () => {
+    return `${new Date().getFullYear()}-${new Date().getMonth().toString().padStart(2, '0')}-${new Date().getDate().toString().padStart(2, '0')}`
+}
